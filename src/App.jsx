@@ -1,13 +1,32 @@
+import { Route, Routes } from "react-router-dom"
+import ChatPage from "./pages/ChatPage"
+import Login from "./pages/Login"
+import Siginup from "./pages/Siginup"
+import { useAuthStore } from "./store/useAuthStore"
 
 
 const App = () => {
 
+
   return (
-    <>
-      <div className="text-3xl font-bold underline text-red-700">
-        Hello world!
-      </div>
-    </>
+    <div 
+    className="min-h-screen bg-slate-900 relative items-center justify-center flex 
+    p-4 overflow-hidden"> 
+
+    {/* DECORATORS - GRID BG & GLOW SHAPES */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px]" />
+      <div className="absolute top-0 -left-4 size-96 bg-pink-500 opacity-20 blur-[100px]" />
+      <div className="absolute bottom-0 -right-4 size-96 bg-cyan-500 opacity-20 blur-[100px]" />
+
+      <Routes>
+        {/* <Route path='/' element={<Home />} /> */}
+        <Route path='/' element={<ChatPage />} />
+        <Route path='*' element={<div>404 Not Found</div>} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/signup' element={<Siginup />} />
+
+      </Routes>
+    </div>
   )
 }
 
