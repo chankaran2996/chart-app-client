@@ -9,7 +9,7 @@ export const useAuthStore = create((set) => ({
 
     authUser: null,
     isCheckedin : true,
-    isSigninup : false,
+    isSignup : false,
 
     checkAuth : async() => {
         try {
@@ -28,10 +28,10 @@ export const useAuthStore = create((set) => ({
         }
     },
 
-    sigin : async (data) => {
-        set({ isSigninup : true });
+    signup : async (data) => {
+        set({ isSignup : true });
         try {
-            const response = await axiosInstance.post("/auth/signin" , data);
+            const response = await axiosInstance.post("/auth/register" , data);
             if(response.status === 201){
                 set({ authUser : response.data });
                 toast.success(response.data.message);
