@@ -1,12 +1,28 @@
-import { Route, Routes } from "react-router-dom"
+import { Navigate, Route, Routes } from "react-router-dom"
 import ChatPage from "./pages/ChatPage"
 import Login from "./pages/Login"
 import Siginup from "./pages/Siginup"
 import { useAuthStore } from "./store/useAuthStore"
+import { useEffect } from "react"
+import PageLoading from "./components/PageLoading"
+import { Toaster } from "react-hot-toast"
 
 
 const App = () => {
 
+  const { checkAuth, ischeckedin , authUser } = useAuthStore();
+
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
+
+  console.log(authUser);
+
+  if(ischeckedin){
+    return (
+      <PageLoading />
+    );
+  }
 
   return (
     <div 
@@ -20,12 +36,13 @@ const App = () => {
 
       <Routes>
         {/* <Route path='/' element={<Home />} /> */}
-        <Route path='/' element={<ChatPage />} />
+        <Route path='/' element={authUser ? <ChatPage /> : <Navigate to="/login" />} />
         <Route path='*' element={<div>404 Not Found</div>} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/signup' element={<Siginup />} />
+        <Route path='/login' element={ !authUser ? <Login /> : <Navigate to="/" />} />
+        <Route path='/signup' element={!authUser ? <Siginup /> : <Navigate to="/" />} />
 
       </Routes>
+      <Toaster />
     </div>
   )
 }
