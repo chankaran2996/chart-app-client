@@ -3,9 +3,6 @@ import { axiosInstance } from "../lib/axios";
 import toast from "react-hot-toast";
 
 export const useAuthStore = create((set) => ({
-//   user: null,
-//   setUser: (user) => set({ user }),
-//   clearUser: () => set({ user: null }),
 
     authUser: null,
     isCheckedin : true,
