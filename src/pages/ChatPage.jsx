@@ -20,7 +20,7 @@ const ChatPage = () => {
 
           <div className=' flex-1 p-4 overflow-y-auto space-y-2'>
             {
-              activeTab === "chats" ? (
+              activeTab === "Chats" ? (
                 <ChatList />
               ) : (
                 <ContactList />
