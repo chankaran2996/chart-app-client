@@ -12,7 +12,6 @@ export const useAuthStore = create((set) => ({
     checkAuth : async() => {
         try {
             const response = await axiosInstance.get("/auth/check");
-            console.log("Auth check response:", response);
             if(response.status === 200){
                 set({ authUser: response.data });
                 return;
@@ -48,6 +47,7 @@ export const useAuthStore = create((set) => ({
             if(response.status === 200){
                 set({ authUser : response.data });
                 toast.success(response.data.message);
+                return response.data;
             }
         } catch (error) {
             toast.error(error.response?.data?.message || "Login failed");
@@ -69,5 +69,18 @@ export const useAuthStore = create((set) => ({
             set({ isLogin : false });
         }
     },
+
+    updateProfileImage : async (data) => {
+        try {
+            const response = await axiosInstance.put("/auth/profile-pic" , data);
+            if(response.status === 200){
+                toast.success("Profile image updated successfully");
+                return response.data.imageUrl;
+            }
+            set({ authUser : response.data });
+        } catch (error) {
+            toast.error(error.response?.data?.message || "Profile image update failed");
+        }
+    }
 
 }));

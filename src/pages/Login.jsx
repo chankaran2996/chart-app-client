@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import BorderAnimatedContainer from '../components/BorderAnimatedContainer';
 import { useAuthStore } from '../store/useAuthStore';
 import { LoaderIcon, LockIcon, MailIcon, MessageCircleIcon } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import loginImage from '../assets/login.png';
 
 const Login = () => {
@@ -12,9 +12,18 @@ const Login = () => {
   });
   const {login , isLogin} = useAuthStore();
 
-  const hndileSubmit = (e) => {
+  const navigate = useNavigate();
+
+  const hndileSubmit = async(e) => {
     e.preventDefault();
-    login(formData);
+    const user = await login(formData);
+    if(user){
+      setFormData({
+        email: '',
+        password: '',
+      });
+      navigate('/');
+    }
   }
   return (
     <div className=' w-full flex items-center justify-center p-4 bg-slate-900'>
